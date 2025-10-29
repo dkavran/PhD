@@ -23,7 +23,7 @@ from torch.autograd import Variable
 
 # Implemented imports
 import sys
-sys.path.append('../../')
+sys.path.append('../')
 from proposed_method_lib.graph import segment_images, plot_nx_graph, save_graphs_to_file, load_item_with_pickle, get_indices_and_labels_for_time_frame_without_labels
 from proposed_method_lib.dgl import MyModelGraphSAGE, MyModelGraphTransformer, MyModelGAT, MyModelOnlyCNN, get_label_conversion_table, get_correct_labels, ProposedSampler
 
