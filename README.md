@@ -21,19 +21,23 @@ In the doctoral dissertation, spatiotemporal semantic segmentation of land use o
 
 ### Workflow
 
+The image below illustrates the overall workflow of the proposed method.
+
 ![The workflow of the proposed method consisting of four main steps](images/general_workflow_proposed_method.png?raw=true "The workflow of the proposed method consisting of four main steps")
+
+The following is the algorithm for subgraph sampling used in the proposed method:
 
 ![Algorithm for subgraph sampling](images/subgraph_sampling_algorithm.png?raw=true "Algorithm for subgraph sampling")
 
 ### Results
 
-Comparison was performed against state-of-the-art methods:
-- GASSL (https://github.com/sustainlab-group/geography-aware-ssl),
-- SeCo (https://github.com/ServiceNow/seasonal-contrast),
-- SatMAE (https://github.com/sustainlab-group/SatMAE),
-- TOV (https://github.com/GeoX-Lab/G-RSIM/tree/main/TOV_v1).
+A comparison of the proposed semantic segmentation method was conducted against several state-of-the-art approaches:  
+- [**GASSL**](https://github.com/sustainlab-group/geography-aware-ssl)
+- [**SeCo**](https://github.com/ServiceNow/seasonal-contrast)
+- [**SatMAE**](https://github.com/sustainlab-group/SatMAE)
+- [**TOV**](https://github.com/GeoX-Lab/G-RSIM/tree/main/TOV_v1)
 
-Results are shown in the image below.
+Results of the comparison are presented in the image below.
 
 ![Results](images/vizualization_results_proposed_method_vs_state_of_the_art.png?raw=true "Results")
 
