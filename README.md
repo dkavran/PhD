@@ -1,4 +1,7 @@
-# Submitted PhD dissertation: Method for spatiotemporal semantic segmentation of land use on satellite imagery using graph neural networks
+# Submitted PhD dissertation
+**Title:** Method for spatiotemporal semantic segmentation of land use on satellite imagery using graph neural networks
+
+---
 
 This repository includes:
 - The abstract of the submitted PhD dissertation,  
@@ -48,9 +51,10 @@ Results of the comparison are presented in the image below.
 Requirements:
 - Python and Anaconda  
 - PyTorch  
-- Deep Graph Library (DGL)  
-- NumPy, SciPy  
-- scikit-image 
+- Deep Graph Library (DGL)
+- NetworkX
+- NumPy & SciPy
+- scikit-image & OpenCV
 
 Code Structure (`source/`):
 - `proposed_method_lib/`: core library implementing the main logic of the proposed method:
