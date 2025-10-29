@@ -1,10 +1,10 @@
 # Submitted PhD dissertation: Method for spatiotemporal semantic segmentation of land use on satellite imagery using graph neural networks
 
 This repository includes:
-- The **abstract** of the submitted PhD dissertation,  
-- An **illustration of the basic workflow** of the proposed semantic segmentation method,
-- The **algorithm for subgraph sampling** and an **image demonstrating example results** of the proposed method,  
-- A **partial codebase** representing the work conducted during the PhD research.
+- The abstract of the submitted PhD dissertation,  
+- An illustration of the basic workflow of the proposed semantic segmentation method,
+- The algorithm for subgraph sampling and an image demonstrating example results of the proposed method,  
+- A partial codebase representing the work conducted during the PhD research.
 
 ---
 
@@ -43,7 +43,7 @@ Results of the comparison are presented in the image below.
 
 ### Source code
 
-***Note:*** The current version of the code is *partial* — it does **not include the dataset** and the **full codebase**. It is provided **solely as a showcase** of the source code developed for the PhD work. Future updates will include the **complete codebase**.
+***Note:*** The current version of the code is *partial* — it does **not include the dataset** and the **full codebase**. It is provided **solely as a showcase** of the source code developed for the PhD work. Future updates will include the complete codebase.
 
 Requirements:
 - Python and Anaconda  
@@ -56,9 +56,9 @@ Code Structure (`source/`):
 - `proposed_method_lib/`: core library implementing the main logic of the proposed method:
     - **Graph construction:**
       Implemented in `graph_node.py` with the following key functions:
-      - `create_time_series_graphs()` → creates **directed temporal connections** between segments/nodes.  
-      - `get_all_possible_graphs_fast()` → generates **graphs** based on temporal connections.  
-      - `add_spatial_connections_to_graphs()` → adds **spatial connections** between segments/nodes to the graphs.  
+      - `create_time_series_graphs()` → **creates directed temporal connections** between segments/nodes.  
+      - `get_all_possible_graphs_fast()` → **generates graphs** based on temporal connections.  
+      - `add_spatial_connections_to_graphs()` → **adds spatial connections** between segments/nodes to the graphs.  
 
     - **GNN architectures:**  
       Implemented in `dgl.py` within the following classes:
@@ -68,17 +68,17 @@ Code Structure (`source/`):
 
     - **Graph sampling:**  
       - `ProposedSampler` class in `dgl.py`  
-        Performs **subgraph sampling**, as described in the algorithm above.
+        Performs subgraph sampling, as described in the algorithm above.
 
 - `data_preparation/`: Jupyter notebooks for data preprocessing and graph generation:
     - **`1_prepare_graphs.ipynb`**  
       Creates graphs (1st and 2nd steps of the workflow shown in the image above).  
 
     - **`2_postprocessing_join_all_separate_graphs_into_one.ipynb`**  
-      Merges all separate graphs into a single **training and validation graph** (post-processing after step 2).  
+      Merges all separate graphs into a single training and validation graph (post-processing after step 2).  
 
      - **`3_calculate_normalization_parameters.ipynb`**  
-       Calculates **normalization parameters** (means and standard deviations) across all training images and saves them to `train_set_normalization_data.json`.
+       Calculates normalization parameters (means and standard deviations) across all training images and saves them to `train_set_normalization_data.json`.
 
 - `training/`: scripts for model training and evaluation:
   - **`run_training.py`**  
