@@ -21,7 +21,7 @@ In the doctoral dissertation, spatiotemporal semantic segmentation of land use o
 
 ### Workflow
 
-![The workflow of the proposed method consisting of four main steps](images/general_workflow.png?raw=true "The workflow of the proposed method consisting of four main steps")
+![The workflow of the proposed method consisting of four main steps](images/general_workflow_proposed_method.png?raw=true "The workflow of the proposed method consisting of four main steps")
 
 ![Algorithm for subgraph sampling](images/subgraph_sampling_algorithm.png?raw=true "Algorithm for subgraph sampling")
 
@@ -35,7 +35,7 @@ Comparison was performed against state-of-the-art methods:
 
 Results are shown in the image below.
 
-![Results](images/results.png?raw=true "Results")
+![Results](images/vizualization_results_proposed_method_vs_state_of_the_art.png?raw=true "Results")
 
 ### Source code
 
