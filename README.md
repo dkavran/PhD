@@ -1,5 +1,5 @@
 # Submitted PhD dissertation
-**Title:** Method for spatiotemporal semantic segmentation of land use on satellite imagery using graph neural networks
+**Title:** Method for Spatiotemporal Semantic Segmentation of Land Use on Satellite Imagery Using Graph Neural Networks
 
 ---
 
@@ -46,7 +46,7 @@ Visualizations of the results obtained using the proposed method and comparable 
 
 ### Source code
 
-***Note:*** The current version of the code is *partial* — it does **not include the dataset** and the **full codebase**. It is provided **solely as a showcase** of the source code developed for the PhD work. Future updates will include the complete codebase.
+***Note:*** The current version of the code is *partial* — it does **not include the dataset** and the **full codebase**. It is provided **solely as a demonstration** of the source code developed for the PhD work. Future updates will include the complete codebase.
 
 Requirements:
 - Python and Anaconda  
