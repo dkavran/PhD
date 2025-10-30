@@ -85,7 +85,7 @@ def segment_images(img, ratio = 1.0, kernel_size = 3, max_dist = 100, return_tre
                 segm_mask_with_only_label[segmentation_mask == l] = 1
 
                 num_labels, labels_im = cv2.connectedComponents(segm_mask_with_only_label)
-                connected_components_labels = np.unique(labels_im)[1:] #remove first, on index 0 == background
+                connected_components_labels = np.unique(labels_im)[1:] # Remove the background on index 0
                 for cc_l in connected_components_labels:
                     segmentation_mask_corrected[labels_im == cc_l] = new_label
                     new_label += 1

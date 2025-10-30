@@ -328,7 +328,7 @@ def get_features(img, feature_type, segmentation_mask, raw_image, segment_index,
             raw_data = (raw_image[:,:,ch][segmentation_mask == segment_index] * 255.0).astype(np.uint8)
             node_features = np.append(node_features, np.mean(raw_data))
 
-    elif feature_type == "raw":
+    elif feature_type == "raw": # Keep the raw pixel values and flatten them into a vector.
         node_features = img.ravel()
 
     if dtype is not None:

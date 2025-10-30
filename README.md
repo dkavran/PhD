@@ -4,16 +4,16 @@
 ---
 
 This repository includes:
-- The abstract of the submitted PhD dissertation,  
-- An illustration of the basic workflow of the proposed semantic segmentation method,
-- The algorithm for subgraph sampling and an image demonstrating example results of the proposed method,  
-- A partial codebase representing the work conducted during the PhD research.
+- The abstract of the submitted PhD dissertation
+- An illustration of the basic workflow of the proposed semantic segmentation method
+- The algorithm for subgraph sampling and an image demonstrating results of the proposed method
+- A partial codebase representing the work conducted during the PhD research
 
 ---
 
 ### Information regarding the PhD submission
 
-- **Submission date:** October 20, 2025 (currently under committee review)  
+- **Submission date:** October 20, 2025 (***currently under committee review***)  
 - **University and faculty:** University of Maribor, Faculty of Electrical Engineering and Computer Science (UM FERI), Slovenia  
 - **Language:** Slovenian  
 - **Expected defence and completion:** May–June 2026  
@@ -28,19 +28,19 @@ The image below illustrates the overall workflow of the proposed method.
 
 ![The workflow of the proposed method consisting of four main steps](images/general_workflow_proposed_method.png?raw=true "The workflow of the proposed method consisting of four main steps")
 
-The following is the algorithm for subgraph sampling used in the proposed method:
+The following is the algorithm for subgraph sampling used in the proposed method (3rd step of the workflow shown in the image above):
 
 ![Algorithm for subgraph sampling](images/subgraph_sampling_algorithm.png?raw=true "Algorithm for subgraph sampling")
 
 ### Results
 
-A comparison of the proposed semantic segmentation method was conducted against several state-of-the-art approaches:  
+A comparison of the proposed semantic segmentation method was conducted against several state-of-the-art remote sensing foundation models:
 - [**GASSL**](https://github.com/sustainlab-group/geography-aware-ssl)
 - [**SeCo**](https://github.com/ServiceNow/seasonal-contrast)
 - [**SatMAE**](https://github.com/sustainlab-group/SatMAE)
 - [**TOV**](https://github.com/GeoX-Lab/G-RSIM/tree/main/TOV_v1)
 
-Results of the comparison are presented in the image below.
+Visualizations of the results obtained using the proposed method and comparable state-of-the-art remote sensing foundation models are presented in the image below.
 
 ![Results](images/vizualization_results_proposed_method_vs_state_of_the_art.png?raw=true "Results")
 
@@ -67,8 +67,8 @@ Code Structure (`source/`):
     - **GNN architectures:**  
       Implemented in `dgl.py` within the following classes:
       - `MyModelGAT` – **Graph Attention Network (GAT)**  
-      - `MyModelGraphTransformer` – **Heterogeneous Graph Transformer**  
-      - `MyModelGraphSAGE` – **GraphSAGE architecture**
+      - `MyModelGraphTransformer` – **Heterogeneous Graph Transformer (HGT)**  
+      - `MyModelGraphSAGE` – **GraphSAGE**
 
     - **Graph sampling:**  
       - `ProposedSampler` class in `dgl.py`  
@@ -76,13 +76,13 @@ Code Structure (`source/`):
 
 - `data_preparation/`: Jupyter notebooks for data preprocessing and graph generation:
     - **`1_prepare_graphs.ipynb`**  
-      Creates graphs (1st and 2nd steps of the workflow shown in the image above).  
+      Creates graphs (1st and 2nd steps in the workflow shown above).  
 
     - **`2_postprocessing_join_all_separate_graphs_into_one.ipynb`**  
-      Merges all separate graphs into a single training and validation graph (post-processing after step 2).  
+      Merges all separate graphs into a single large graph (post-processing after 2nd step of the workflow). 
 
      - **`3_calculate_normalization_parameters.ipynb`**  
-       Calculates normalization parameters (means and standard deviations) across all training images and saves them to `train_set_normalization_data.json`.
+       Calculates normalization parameters (means and standard deviations) across all training images and saves them to `train_set_normalization_data.json`. The resulting parameters are applied to standardize input data during both model training and inference.
 
 - `training/`: scripts for model training and evaluation:
   - **`run_training.py`**  

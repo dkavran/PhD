@@ -179,7 +179,7 @@ def create_feature_extractor(feature_extractor_size, freeze_upper_N_layers, feat
         feature_extractor_transform = torchvision.models.ResNet152_Weights.IMAGENET1K_V1.transforms()
         feature_extractor_output_size = 2048
 
-    # ConvNeXt-s
+    # ConvNeXts
     elif feature_extractor_size == "ConvNeXt-tiny":
         weights = torchvision.models.ConvNeXt_Tiny_Weights.IMAGENET1K_V1
         if freeze_upper_N_layers is None:
@@ -213,7 +213,7 @@ def create_feature_extractor(feature_extractor_size, freeze_upper_N_layers, feat
         feature_extractor_transform = torchvision.models.ConvNeXt_Large_Weights.IMAGENET1K_V1.transforms()
         feature_extractor_output_size = 1536
     
-    # Efficient small networks
+    # Other efficient small networks
     elif feature_extractor_size == "ShuffleNetV2-x0.5":
         weights = torchvision.models.ShuffleNet_V2_X0_5_Weights.IMAGENET1K_V1
         if freeze_upper_N_layers is None:

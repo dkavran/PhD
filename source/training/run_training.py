@@ -819,7 +819,7 @@ def train(gpu, args):
                                         labels_all_epochs.append(labels)
                                         losses_all_epochs.append(epoch_avg_loss)
 
-                                        # Save log data (softmax predictions and labels + losses)
+                                        # Save log data (softmax predictions, labels and losses)
                                         with open(improve_path('./log/' + save_folder_path + '/test_log_softmax_preds_per_epoch_run_' + str(run + 1) + '.pickle'), 'wb') as handle: #previous: 'test_log_softmax_predictions_per_epoch_run_'
                                                 pickle.dump(softmax_predictions_all_epochs, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
