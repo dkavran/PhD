@@ -1,4 +1,4 @@
-# Submitted PhD dissertation
+# PhD dissertation
 **Title:** Method for Spatiotemporal Semantic Segmentation of Land Use on Satellite Imagery Using Graph Neural Networks
 
 ---
@@ -11,16 +11,21 @@ This repository includes:
 
 ---
 
-### Information regarding the PhD submission
+### Information regarding the PhD dissertation
 
-- **Submission date:** October 20, 2025 (***currently under committee review***)  
+- **Submission date:** October 20, 2025
 - **University and faculty:** University of Maribor, Faculty of Electrical Engineering and Computer Science (UM FERI), Maribor, Slovenia (EU)
 - **Language:** Slovenian  
-- **Expected defence and completion:** May–June 2026  
+- **Completion:** March 2026
+- **Available through the Digital Library of University of Maribor:** [Link](https://dk.um.si/IzpisGradiva.php?lang=slv&id=95633)
 
 ### Abstract
 
-In the doctoral dissertation, spatiotemporal semantic segmentation of land use on satellite imagery is presented. Current state-of-the-art methods exhibit limitations in usage of spatial context and temporal information. The proposed method overcomes these challenges by utilizing graph neural networks on time series of multispectral images of the Earth’s surface. In the first step, individual images are segmented into regions, followed by the construction of a graph with spatial and temporally directed edges between the regions. For each classified region, or target node, a directed subgraph is created, which includes neighboring nodes with established spatial and temporal connections, leading to the target node. These neighboring nodes thus represent the spatial and temporal neighborhood. The subgraph is then passed into the target node classification pipeline, where a convolutional neural network first extracts high-level features over the bounding boxes of the regions of all subgraph nodes. Subsequently, the subgraph enriched with these features, is processed by a graph neural network, which performs the classification of the target node. This procedure is carried out for each node or region. The result of the proposed method is a predicted time series of semantically segmented input area in the form of segmentation maps with land use labels. The method was evaluated on the DynamicEarthNet dataset and compared against state-of-the-art methods for training remote sensing foundation models, namely GASSL, SeCo, SatMAE, and TOV. The proposed method achieved the best average results, with an average mIoU 0.4145, when using spatial neighborhood in the subgraphs, and an mF1 0.5202, when using temporal neighborhood. The best-trained model of the proposed method achieved a wF1 score of 0.6905, when using temporal neighborhood in the subgraphs. By contrast, the best-performing state-of-the-art method, GASSL, yielded inferior average results, with an average mIoU 0.3823 and mF1 0.4908. Statistical analysis confirmed that the proposed method provides statistically significantly better results compared to existing state-of-the-art methods.
+In the doctoral dissertation, spatiotemporal semantic segmentation of land use on satellite imagery is presented. Current state-of-the-art methods exhibit limitations in the usage of spatial context and temporal information and additionally lack adaptability to changes in the structure of input data. The proposed method overcomes these challenges by utilizing graph neural networks on time series of multispectral images of the Earth’s surface.
+
+In the first step of the proposed method, individual images are segmented into regions, followed by the construction of a graph with spatial and temporally directed edges between the regions. For each classified region, or target node, a directed subgraph is created, which includes neighboring nodes with established spatial and temporal connections leading to the target node. These neighboring nodes thus represent the spatial and temporal neighborhood. The subgraph is then passed into the target node classification pipeline, where a convolutional neural network first extracts high-level features from the bounding boxes of the regions of all subgraph nodes. Subsequently, the subgraph, enriched with these features, is processed by a graph neural network, which performs the classification of the target node. This procedure is carried out for each node or region. The result of the proposed method is a predicted time series of the semantically segmented input area in the form of segmentation maps with land use labels.
+
+The proposed semantic segmentation method was evaluated on the DynamicEarthNet dataset, which contains time series of daily satellite imagery from 75 geographic regions worldwide, and compared against state-of-the-art methods for training remote sensing foundation models, namely GASSL, SeCo, SatMAE, and TOV. The proposed method achieved the best average results compared to the state-of-the-art methods, with statistically significant differences, reaching an average mIoU 0.4145 ± 0.0051 (p-values: 0.0111, 0.0087, 2 × 10−6, and 9 × 10−5) when using spatial neighborhood in the subgraphs, and an mF1 0.5202 ± 0.0103 (p-values: 0.0287, 0.0274, 6 × 10−8, and 9 × 10−5) when using temporal neighborhood. By contrast, the best-performing state-of-the-art method GASSL yielded inferior average results, with an average mIoU 0.3823 ± 0.0156 and mF1 0.4908 ± 0.0198. The results thus demonstrate that the proposed semantic segmentation method achieves a better average performance, compared to the best-performing state-of-the-art method, with improvements of +0.0322 in mIoU and +0.0294 in mF1. An extensive statistical analysis of the results confirmed that the proposed method achieves statistically significantly better results, compared to existing state-of-the-art methods in terms of the mF1 and mIoU metrics. The best-trained model of the proposed method achieved a wF1 score of 0.6905 on the DynamicEarthNet dataset when using temporal neighborhood in the subgraphs. The highest classification performance was obtained for the class »Water«, with an F1 score of 0.9159 and an IoU of 0.8449. Among the remaining five classification classes, the »Forest and other vegetation« class stood out with an F1 score of 0.7890 and an IoU of 0.6515, while the »Soil« class was classified with an F1 score of 0.6561 and an IoU of 0.4882.
 
 ### Workflow
 
