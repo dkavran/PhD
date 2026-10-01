@@ -50,8 +50,6 @@ Visualizations of the results obtained using the proposed method and comparable 
 
 ### Source code
 
-***Note:*** The current version of the code is *partial* — it does **not include the dataset** and the **full codebase**. It is provided **solely as a demonstration** of the source code developed for the PhD work. Future updates will include the complete codebase.
-
 Requirements:
 - Python and Anaconda  
 - PyTorch  
@@ -60,7 +58,7 @@ Requirements:
 - NumPy & SciPy
 - scikit-image & OpenCV
 
-Code Structure (`source/`):
+Proposed method code structure (`source/`):
 - `proposed_method_lib/`: core library implementing the main logic of the proposed method:
     - **Graph construction:**
       Implemented in `graph_node.py` with the following key functions:
@@ -94,3 +92,35 @@ Code Structure (`source/`):
 
     **Example usage:**
     `nohup python -u ./run_training.py --epochs 30 --runs 5 --train_places train_data_path/ --test_places test_data_path/ --train_pickle_file_name train/combined_graph.pickle --test_pickle_file_name test/combined_graph.pickle --region_bbox_size 32 --region_bbox_channels 4 --spatial_step_surrounding_region 0 --space_neighborhood_size 0 --time_step_past 1 --time_neighborhood_size 5 --h_feat_amount 16 --data_path C://...//prepared_data --number_of_workers 0 --graph_dtype int32 --gpus 1 --batch_size 128 --test_batch_size 768 --freeze_upper_N_layers 0 --max_layer_freeze_percentage 0.0 --use_custom_sampler --aggregator_type mean --feature_extraction_NN ShuffleNetV2-x0.5  --use_class_weights --early_stopping_patience 3 --use_uva --use_AMP --use_normalization --use_focal_loss --fl_gamma 2.0 --use_ELU_in_graph_layers &`
+
+ <br />
+ <br />
+ <br />
+State-of-the-art foundation models that the proposed method was compared against (`source_state_of_the_art_methods/`):
+
+* `methods/`: original repositories of the compared foundation models (self-supervised pretrained encoders), with minor adaptations so they can be used as segmentation backbones:
+   * `GASSL/` – Geography-Aware Self-Supervised Learning (MoCo-v2 ResNet-50 pretrained on fMoW). Variants: `GASSL-basic`, `GASSL-TP`, `GASSL-GEO`, `GASSL-GEO+TP`.
+   * `SeCo/` – Seasonal Contrast (MoCo-v2 ResNet-18/50 pretrained on SeCo-100K/1M). Variants: `SeCo-100K-ResNet-18`, `SeCo-1M-ResNet-18`, `SeCo-100K-ResNet-50`, `SeCo-1M-ResNet-50`.
+   * `SatMAE/` – Satellite Masked Autoencoder (ViT pretrained on fMoW). Variants: `SatMAE_fMoW_Non_Temporal_ViT-Large`, `SatMAE_fMoW_Temporal_ViT-Large`, `SatMAE_fMoW_MultiSpectral_ViT-Base`, `SatMAE_fMoW_MultiSpectral_ViT-Large`.
+      * `models_vit.py` and `models_vit_temporal.py` were modified so that `forward()` returns patch-token features (CLS token removed) instead of classification outputs. In the temporal variant, patch features of the three input images are additionally averaged across time.
+   * `TOV/` – The Original Vision model (ResNet-50 pretrained on TOV-RS-balanced), from the G-RSIM repository.
+   * Each method contains a `weights/` folder into which the official pretrained checkpoints must be downloaded before training.
+* `decoders/TransUNet/`: original TransUNet repository. Its `DecoderCup` (in `networks/vit_seg_modeling.py`) is used as the segmentation decoder for ViT-based encoders (SatMAE), configured without skip connections.
+* `my_code/`: core library that wraps the foundation models into a unified segmentation pipeline:
+   * Backbones: Implemented in `backbones.py` within the following classes:
+      * `MoCoResNet50Backbone` – GASSL encoder
+      * `SeCo_MoCoResNet50Backbone` – SeCo encoder
+      * `SatMAE` – SatMAE encoder (also provides the matching TransUNet decoder config via `get_config()`)
+      * `TOV` – TOV encoder
+
+      Each foundation model loads the pretrained checkpoint, removes the classification head, and expands the first convolution/patch embedding layer from 3 (RGB) to 4 input channels (RGB + NIR), initializing the NIR channel with the pretrained weights of the red channel. CNN backbones return multi-scale feature maps from all ResNet stages.
+   * Model: Implemented in `model.py`:
+      * `create_state_of_the_art_model()` → builds the encoder–decoder model for the selected architecture: ResNet-based encoders (GASSL, SeCo, TOV) are combined with a UPerNet decoder, ViT-based encoders (SatMAE) with the TransUNet decoder, and a ResNet-34 U-Net (ImageNet weights) is included as a baseline.
+      * `MyModel` – PyTorch Lightning module handling input resizing, normalization, random horizontal/vertical flip augmentation, loss (cross-entropy or focal), AdamW optimization with polynomial learning-rate decay, and logging of mIoU.
+   * Data loading: Implemented in `dataset.py`:
+      * `Dataset` class → loads monthly image/label pairs. For the temporal SatMAE variant, it also returns the two preceding images of the time series together with their timestamps.
+      * `create_dataloader()` → creates dataloaders for the selected train/val/test subsets.
+   * Evaluation: Implemented in `utils.py`:
+      * `run_metrics()` → computes mIoU and weighted/macro F1 per subset and across the whole dataset.
+* `default_train_set_normalization_data.json`: per-channel (R, G, B, NIR) means and standard deviations of the training set, used to standardize inputs during training and inference.
+* **`training.ipynb`**: Jupyter notebook for training and evaluating the selected model (`model_arch`) over multiple independent runs (with early stopping and best-checkpoint saving), and writing the averaged test metrics to a text file. Set `relative_path_to_data` to the location of the prepared data before running.
