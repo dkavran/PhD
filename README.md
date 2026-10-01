@@ -124,3 +124,25 @@ State-of-the-art foundation models that the proposed method was compared against
       * `run_metrics()` → computes mIoU and weighted/macro F1 per subset and across the whole dataset.
 * `default_train_set_normalization_data.json`: per-channel (R, G, B, NIR) means and standard deviations of the training set, used to standardize inputs during training and inference.
 * **`training.ipynb`**: Jupyter notebook for training and evaluating the selected model (`model_arch`) over multiple independent runs (with early stopping and best-checkpoint saving), and writing the averaged test metrics to a text file. Set `relative_path_to_data` to the location of the prepared data before running.
+
+ <br />
+ <br />
+ <br />
+Demo of the proposed method with pretrained weights (`run_proposed_method.ipynb`):
+
+* **`run_proposed_method.ipynb`**: Jupyter notebook that creates the proposed model, loads the best trained weights, runs inference on a single demo region and plots the predicted segmentation maps next to the ground truth.
+   * **Model configuration** (matching the `run_training.py` arguments of the best-trained model):
+      * GNN architecture: Heterogeneous Graph Transformer (HGT), `MyModelGraphTransformer` with 8 attention heads and 256 hidden features (`--use_transformer --num_heads 8 --h_feat_amount 256`)
+      * Feature extractor: EfficientNetV2-S (`--feature_extraction_NN EfficientNetV2-S`)
+      * Region bounding boxes: 32 × 32 px with 4 channels, RGB + NIR (`--region_bbox_size 32 --region_bbox_channels 4`)
+      * Subgraph sampling: `ProposedSampler` with temporal neighborhood only, using 0 spatial steps and 1 temporal step into the past with a fanout of 2 (`--use_custom_sampler --spatial_step_surrounding_region 0 --space_neighborhood_size 0 --time_step_past 1 --time_neighborhood_size 2`)
+   * **Required files:**
+      * `proposed_method_weights/best_model.pt` contains the trained model weights.
+      * `source/train_set_normalization_data.json` contains the normalization parameters of the training set.
+      * The demo region folder must contain `graph.pickle` and `segmentation_masks.pickle`, as produced by `data_preparation/1_prepare_graphs.ipynb`.
+   * **Usage:** set `DEMO_REGION_PATH` to the demo region folder, including the trailing `/`, and run all cells in order. The notebook performs the following steps:
+      1. Builds the model and loads the weights. The number of classes is read from the checkpoint.
+      2. Converts the NetworkX graph of the region into a DGL graph.
+      3. Classifies every node (region) with subgraphs sampled by `ProposedSampler`.
+      4. Maps the node predictions back to pixels using the segmentation masks.
+      5. Plots the predicted segmentation maps and the ground truth for the selected months (`time_indices_to_plot`), using the DynamicEarthNet class colors.
