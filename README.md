@@ -13,7 +13,6 @@ This repository includes:
 
 ### Information regarding the PhD dissertation
 
-- **Submission date:** October 20, 2025
 - **University and faculty:** University of Maribor, Faculty of Electrical Engineering and Computer Science (UM FERI), Maribor, Slovenia (EU)
 - **Language:** Slovenian  
 - **Completion:** March 2026
